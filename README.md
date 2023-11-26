@@ -1,3 +1,3 @@
 ## server
 
-server link : https://github.com/mir-hussain/moon-tech-server
+server link : bistro-boss-server from my repository list.
