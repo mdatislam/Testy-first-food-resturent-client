@@ -1,9 +1,15 @@
+import { useNavigate } from "react-router-dom";
+import EditProduct from "../../pages/Dashboard/EditProduct";
+
 import {
+  ADD_DATA,
   ADD_PRODUCT,
   ADD_TO_CART,
+  LOAD_DATA,
   PRODUCT_LOADED,
   REMOVE_FROM_CART,
   REMOVE_PRODUCT,
+  UPDATE_PRODUCT,
 } from "../actionTypes/actionTypes";
 
 const initialState = {
@@ -17,18 +23,31 @@ const productReducer = (state = initialState, action) => {
   );
 
   switch (action.type) {
+    case LOAD_DATA:
+      return {
+        ...state,
+        products: action.payload
+      }
     case ADD_PRODUCT:
       return {
         ...state,
         products: [...state.products, action.payload],
       };
-    case REMOVE_PRODUCT:
+
+    case ADD_DATA:
       return {
         ...state,
-        products: state.products.filter(
-          (product) => product._id !== action.payload
-        ),
+        products: [...state.products, action.payload],
       };
+    case REMOVE_PRODUCT:
+      //console.log(action.payload);
+      return {
+        ...state,
+        products: state.products.filter(product =>
+          product._id !== action.payload)
+
+      }
+
     case ADD_TO_CART:
       if (selectedProduct) {
         const newCart = state.cart.filter(
@@ -65,11 +84,15 @@ const productReducer = (state = initialState, action) => {
         ),
       };
 
-    case PRODUCT_LOADED:
+    case UPDATE_PRODUCT:
+      const newProduct= state.products.filter(product=> product._id !== action.id)
+      console.log(newProduct,action.id);
       return {
         ...state,
-        products: action.payload,
-      };
+        products:[...newProduct,action.payload]
+      }
+
+
     default:
       return state;
   }

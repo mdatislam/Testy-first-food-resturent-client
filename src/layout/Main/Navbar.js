@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BsFillCartFill } from "react-icons/bs";
 import { IoIosListBox } from "react-icons/io";
 import { BiSearchAlt } from "react-icons/bi";
+import { useDispatch } from "react-redux";
+import { actionSearch } from "../../redux/actions/filterAction";
 
 const Navbar = () => {
+  const dispatch= useDispatch()
+const [searchKeyWord, setSearch]=useState("")
+  const handleSearch=e=>{
+    const searchWord= e.target.value 
+    setSearch(searchWord)
+    console.log(searchWord);
+    e.target.value=""
+  }
   return (
     <nav className='h-14 bg-indigo-200 rounded-full m-2 max-w-7xl mx-auto px-5'>
       <ul className='h-full  mx-auto flex justify-between items-center gap-3 font-semibold text-indigo-900'>
@@ -16,9 +26,10 @@ const Navbar = () => {
             type='text'
             name='search'
             id='search'
+            onBlur={handleSearch}
           />
           <button>
-            <BiSearchAlt />
+            <BiSearchAlt  onClick={()=>dispatch(actionSearch(searchKeyWord))}/>
           </button>
         </li>
         <li>

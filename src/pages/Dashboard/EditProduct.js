@@ -3,8 +3,10 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { addFoodItem } from "../../redux/Thunk/addFoodItem";
 
-const AddProduct = () => {
-  const dispatch= useDispatch()
+const EditProduct = ({ editProducts }) => {
+  const { id } = editProducts
+  console.log(id);
+  const dispatch = useDispatch()
   const { register, handleSubmit } = useForm();
 
   const submit = (data) => {
@@ -23,10 +25,11 @@ const AddProduct = () => {
     };
 
     console.log(product);
-    dispatch(addFoodItem(product))
+    // dispatch(addFoodItem(product))
   };
 
   return (
+
     <div className='flex justify-center items-center h-full '>
       <form
         className='shadow-lg p-10 rounded-md flex flex-wrap gap-3 max-w-3xl justify-between bg-white'
@@ -148,4 +151,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;
